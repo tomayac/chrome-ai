@@ -71,12 +71,12 @@ export class ChromeAIChatLanguageModel implements LanguageModelV1 {
   private getSession = async (
     options?: ChromeAIAssistantCreateOptions
   ): Promise<ChromeAIAssistant> => {
-    if (!globalThis.ai?.assistant) {
+    if (!globalThis.ai?.languageModel) {
       throw new LoadSettingError({ message: 'Browser not support' });
     }
     if (this.session) return this.session;
 
-    const cap = await ai.assistant.capabilities();
+    const cap = await ai.languageModel.capabilities();
 
     if (cap.available !== ChromeAICapabilityAvailability.READILY) {
       throw new LoadSettingError({ message: 'Built-in model not ready' });
@@ -89,7 +89,7 @@ export class ChromeAIChatLanguageModel implements LanguageModelV1 {
       ...options,
     };
 
-    this.session = await ai.assistant.create(this.options);
+    this.session = await ai.languageModel.create(this.options);
 
     debug('session created:', this.session, this.options);
     return this.session;

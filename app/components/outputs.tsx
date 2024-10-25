@@ -24,9 +24,9 @@ export const Outputs = React.forwardRef<
     const version = getChromeVersion();
     // setIsBrowserSupport(version >= 127);
 
-    setIsEnabledFlags(!!globalThis.ai?.assistant);
+    setIsEnabledFlags(!!globalThis.ai?.languageModel);
 
-    globalThis.ai?.assistant.capabilities().then((cap) => {
+    globalThis.ai?.languageModel.capabilities().then((cap) => {
       setIsEnabledFlags(cap.available === 'readily');
     });
   }, []);
